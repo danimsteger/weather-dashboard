@@ -16,6 +16,40 @@
     <header>
       <h1>Weather Dashboard</h1>
     </header>
+    <main>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-3">
+            <h2>Search for a City:</h2>
+            <form>
+              <input
+                id="search-input"
+                class="form-input w-100"
+                type="text"
+                placeholder="Insert City Name Here"
+              />
+              <button class="btn btn-info btn-block">Search</button>
+            </form>
+            <div id="saved-searches"></div>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12" id="current-weather">
+                <h2>Current weather HERE!</h2>
+              </div>
+              <div><h3>5-day Forecast:</h3></div>
+            </div>
+            <div class="row">
+              <div class="col-2">Day 1 weather</div>
+              <div class="col-2">Day 2 weather</div>
+              <div class="col-2">Day 3 weather</div>
+              <div class="col-2">Day 4 weather</div>
+              <div class="col-2">Day 5 weather</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
