@@ -53,10 +53,18 @@ const displayCurrentCityWeather = function (data) {
   const currentHumidity = data.list[0].main.humidity;
   console.log("Current Humidity:", currentHumidity);
 
-  // const currentWeatherCard = $("<div>").addClass("card current-card col-12");
-  // const currentCardHeader = $("<div>").addClass("card-header").text(city);
-  // const currentCardBody = $("<div>").addClass("card-body");
-  // const currentCardTemp = $("<p>").addClass("card-text").text("Temp:");
+  const currentWeatherCard = $("<div>").addClass("card current-card col-12");
+  const currentCardHeader = $("<div>")
+    .addClass("card-header")
+    .text(data.city.name);
+  const currentCardBody = $("<div>").addClass("card-body");
+  const currentCardTemp = $("<p>")
+    .addClass("card-text")
+    .text("Temp:", currentTemp);
+
+  currentCardBody.append(currentCardTemp);
+  currentWeatherCard.append(currentCardHeader, currentCardBody);
+  return currentWeatherCard;
 };
 
 // const displayWeather = function (data, searchTerm) {
