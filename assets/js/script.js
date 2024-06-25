@@ -13,26 +13,27 @@ function handleSearchFormSubmit(event) {
   //     return;
   //   }
 
-  //   const queryString = `api.openweathermap.org/data/2.5/forecast?q=${searchInputVal}&appid=4f82dd0d149294627ba2d28ac435f1d2
-  // `;
+  let queryString = `api.openweathermap.org/data/2.5/forecast?q=${searchInputVal}&units=imperial&appid=4f82dd0d149294627ba2d28ac435f1d2 `;
+  console.log(queryString);
 
-  //   console.log(queryString);
+  if (searchInputVal) {
+    getCityWeather(searchInputVal);
+    currentWeatherEl.textcontent = "";
+    searchInputEl.value = "";
+  }
+  //else {
+  //   alert("Please enter a valid city name");
+  // }
 }
 
-// function searchApi() {
-//   const queryURL =
-//     "api.openweathermap.org/data/2.5/forecast?q=${searchInputVal}&appid=4f82dd0d149294627ba2d28ac435f1d2";
-// }
-
 const getCityWeather = function (city) {
-  const apiUrl =
-    "api.openweathermap.org/data/2.5/forecast?q=${city}&appid=4f82dd0d149294627ba2d28ac435f1d2";
+  const apiUrl = `api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=4f82dd0d149294627ba2d28ac435f1d2 `;
 
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          displayCityWeather(data, city);
+          console.log(data, city);
         });
       } else {
         alert("Error:${response.statusText}");
