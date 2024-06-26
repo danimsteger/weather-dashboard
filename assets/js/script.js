@@ -9,7 +9,6 @@ function handleSearchFormSubmit(event) {
   event.preventDefault();
 
   const city = searchInputEl.val();
-  console.log(city);
 
   // Only does the following if a city is inputed.
   if (city !== "") {
