@@ -152,7 +152,7 @@ function renderCities() {
     const city = cities[i];
 
     const savedCity = $("<button>");
-    savedCity.addClass().text(city);
+    savedCity.attr("data-city", city).text(city);
 
     savedCities.append(savedCity);
   }
@@ -167,6 +167,21 @@ function init() {
     renderCities();
   }
 }
-searchFormEl.on("submit", handleSearchFormSubmit);
 
+const buttonClick = function (event) {
+  const city = event.target.getAttribute("data-city");
+  console.log(city);
+  if (city) {
+    getCityWeather(city);
+    currentWeatherEl.html("");
+    futureWeatherEl.html("");
+    futureWeatherHeaderEl.html("");
+  }
+  // const
+  // getCityWeather()
+};
+
+searchFormEl.on("submit", handleSearchFormSubmit);
+// savedCities.on("click", console.log("clicking"));
+savedCities.on("click", buttonClick);
 init();
