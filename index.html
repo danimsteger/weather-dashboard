@@ -10,35 +10,46 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <header>
-      <h1>Weather Dashboard</h1>
+    <header class="bg-secondary text-white">
+      <h1 id="header"><strong>Weather Dashboard</strong></h1>
     </header>
     <main>
-      <div class="container text-center">
+      <div class="container">
         <div class="row">
-          <div class="col-3">
-            <h2>Search for a City:</h2>
+          <div class="col-2">
+            <h3>Search for a City:</h3>
             <form id="search-form">
-              <input
-                id="search-input"
-                class="form-input w-100"
-                type="text"
-                placeholder="Insert City Name Here"
-              />
+              <div class="row align-items-center">
+                <input
+                  id="search-input"
+                  class="form-control form-control-sm"
+                  type="text"
+                  placeholder="Insert City Here..."
+                />
+              </div>
               <button class="btn btn-info btn-block" type="submit">
                 Search
               </button>
             </form>
-            <div class="btn-group-vertical" id="saved-searches"></div>
+            <hr />
+            <div class="row"></div>
+
+            <!-- Empty div to display the previously searched cities once they have been searched. -->
+            <div class="align-items-center col-12" id="saved-searches"></div>
           </div>
-          <div class="col-9">
+          <div class="col-10">
             <div class="row">
+              <!-- Empty div to display the current weather card once a city has been searched.  -->
               <div class="col-12" id="current-weather"></div>
             </div>
             <div id="future-weather-header"></div>
+
+            <!-- Empty div to display the future weather cards in once cities have been searched.  -->
             <div
               class="row justify-content-center card-body"
               id="future-weather"

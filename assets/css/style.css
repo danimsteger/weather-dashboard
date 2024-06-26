@@ -1,0 +1,28 @@
+/* Universal */
+
+* {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+#search-input {
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+
+  font-size: 1rem;
+}
+header {
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.btn-secondary {
+}
