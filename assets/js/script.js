@@ -11,21 +11,21 @@ function handleSearchFormSubmit(event) {
   const city = searchInputEl.val();
   console.log(city);
 
-  if (city) {
+  // Only does the following if a city is inputed.
+  if (city !== "") {
     getCityWeather(city);
+    cities.push(city);
+    console.log(cities);
+    searchInputEl.val("");
+    // Clears existing city weather before rendering the weather of the new city
+    currentWeatherEl.html("");
+    futureWeatherEl.html("");
+    futureWeatherHeaderEl.html("");
+    storeCities();
+    renderCities();
   } else {
     alert("Please enter a valid city name");
   }
-
-  cities.push(city);
-  console.log(cities);
-  searchInputEl.val("");
-  // Clears existing city weather before rendering the weather of the new city
-  currentWeatherEl.html("");
-  futureWeatherEl.html("");
-  futureWeatherHeaderEl.html("");
-  storeCities();
-  renderCities();
 }
 
 const getCityWeather = function (city) {
@@ -50,13 +50,11 @@ const getCityWeather = function (city) {
 
 const displayCurrentCityWeather = function (data) {
   const currentTemp = data.list[0].main.temp;
-  console.log("Current Temp:", currentTemp);
   const currentWind = data.list[0].wind.speed;
-  console.log("Current Wind:", currentWind);
   const currentHumidity = data.list[0].main.humidity;
-  console.log("Current Humidity:", currentHumidity);
   const currentDate = dayjs(data.list[0].dt_txt).format("dddd, MMMM D YYYY");
-  console.log(currentDate);
+  const currentweather = data.list[0].weather[0].icon;
+  const currenticonUrl = `https://openweathermap.org/img/wn/${currentweather}@2x.png`;
 
   const currentWeatherCard = $("<div>").addClass("card current-card col-12");
   const currentCardHeader = $("<div>")
@@ -71,10 +69,19 @@ const displayCurrentCityWeather = function (data) {
     .text("Wind:    " + currentWind + " MPH");
   const currentCardHumidity = $("<p>")
     .addClass("card-text")
-    .text("Humidity:    " + currentWind + " %");
-  const futureWeatherHeader = $("<h3>").text("5-Day Forecast:");
+    .text("Humidity:    " + currentHumidity + " %");
+  const futureWeatherHeader = $("<h3>")
+    .addClass("card-header")
+    .text("5-Day Forecast:");
 
-  currentCardBody.append(currentCardTemp, currentCardWind, currentCardHumidity);
+  const currentweatherIcon = $("<img>").attr("src", currenticonUrl);
+
+  currentCardBody.append(
+    currentweatherIcon,
+    currentCardTemp,
+    currentCardWind,
+    currentCardHumidity
+  );
   currentWeatherCard.append(currentCardHeader, currentCardBody);
 
   currentWeatherEl.append(currentWeatherCard);
@@ -89,16 +96,12 @@ const displayFutureCityWeather = function (data) {
   });
   console.log(firstNoon);
   for (let i = firstNoon; i < data.list.length; i += 8) {
-    console.log(i);
-    console.log(data.list[i].dt_txt);
     const futureTemp = data.list[i].main.temp;
-    console.log("Future Temp", [i], ":", futureTemp);
     const futureWind = data.list[i].wind.speed;
-    console.log("Wind:", futureWind);
     const futureHumidity = data.list[i].main.humidity;
-    console.log("Humidity:", futureHumidity);
     const futureDate = dayjs(data.list[i].dt_txt).format("MMMM D YYYY");
-    console.log(futureDate);
+    const futureweather = data.list[i].weather[0].icon;
+    const futureiconUrl = `https://openweathermap.org/img/wn/${futureweather}@2x.png`;
 
     const futureWeatherCard = $("<div>").addClass(
       "card future-card col-2 mx-2 text-white bg-secondary"
@@ -115,9 +118,16 @@ const displayFutureCityWeather = function (data) {
       .html("Wind:<br>" + futureWind + " MPH");
     const futureCardHumidity = $("<p>")
       .addClass("card-text")
-      .html("Humidity:<br>" + futureWind + " %");
+      .html("Humidity:<br>" + futureHumidity + " %");
 
-    futureCardBody.append(futureCardTemp, futureCardWind, futureCardHumidity);
+    const futureWeatherIcon = $("<img>").attr("src", futureiconUrl);
+
+    futureCardBody.append(
+      futureWeatherIcon,
+      futureCardTemp,
+      futureCardWind,
+      futureCardHumidity
+    );
     futureWeatherCard.append(futureCardHeader, futureCardBody);
 
     futureWeatherEl.append(futureWeatherCard);
