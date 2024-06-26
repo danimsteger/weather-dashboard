@@ -4,7 +4,6 @@
 
 This project invovled creating a webpage that displays the current and future weather of a city that the user searches for. This required fetching the OpenWeather API, manipulating the data that it returned, and populating that data on the page. This project was created from scratch using HTML, CSS, JavaScript, jQuery, dayjs, and Bootstrap. This practical project helped to reinforce Javascript skills while also practicing with jQuery and making API requests. You can view this webpage by clicking [here](https://danimsteger.github.io/weather-dashboard/).
 
-INSERT PIC OF PAGE HERE
 ![Sample view of the page](/assets/images/page.png)
 
 ## Table of Contents
