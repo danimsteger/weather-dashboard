@@ -179,7 +179,7 @@ function renderCities() {
     savedCity
       .attr("data-city", city)
       .attr("type", "button")
-      .addClass("btn btn-secondary btn-block my-1")
+      .addClass("btn btn-secondary btn-block my-1 capitalize")
       .text(city);
 
     savedCities.append(savedCity);
