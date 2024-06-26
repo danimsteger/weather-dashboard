@@ -18,7 +18,10 @@ function handleSearchFormSubmit(event) {
 
   cities.push(city);
   console.log(cities);
-  city.value = "";
+  searchInputEl.val("");
+  // Clears existing city weather before rendering the weather of the new city
+  currentWeatherEl.html("");
+  futureWeatherEl.html("");
   storeCities();
   renderCities();
 }
