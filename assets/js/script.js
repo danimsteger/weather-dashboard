@@ -1,6 +1,7 @@
 const searchFormEl = $("#search-form");
 const searchInputEl = $("#search-input");
 const currentWeatherEl = $("#current-weather");
+const futureWeatherHeaderEl = $("#future-weather-header");
 const futureWeatherEl = $("#future-weather");
 const savedCities = $("#saved-searches");
 
@@ -22,6 +23,7 @@ function handleSearchFormSubmit(event) {
   // Clears existing city weather before rendering the weather of the new city
   currentWeatherEl.html("");
   futureWeatherEl.html("");
+  futureWeatherHeaderEl.html("");
   storeCities();
   renderCities();
 }
@@ -70,11 +72,13 @@ const displayCurrentCityWeather = function (data) {
   const currentCardHumidity = $("<p>")
     .addClass("card-text")
     .text("Humidity:    " + currentWind + " %");
+  const futureWeatherHeader = $("<h3>").text("5-Day Forecast:");
 
   currentCardBody.append(currentCardTemp, currentCardWind, currentCardHumidity);
   currentWeatherCard.append(currentCardHeader, currentCardBody);
 
   currentWeatherEl.append(currentWeatherCard);
+  futureWeatherHeaderEl.append(futureWeatherHeader);
 };
 
 const displayFutureCityWeather = function (data) {
