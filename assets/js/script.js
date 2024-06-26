@@ -2,29 +2,25 @@ const searchFormEl = $("#search-form");
 const searchInputEl = $("#search-input");
 const currentWeatherEl = $("#current-weather");
 const futureWeatherEl = $("#future-weather");
+const savedCities = $("#saved-searches");
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
-  const searchInputVal = searchInputEl.val();
-  console.log(searchInputVal);
+  const city = searchInputEl.val();
+  console.log(city);
 
-  //   if (!searchInputVal) {
-  //     console.error("You need a search input value!");
-  //     return;
-  //   }
-
-  // let queryString = `https://api.openweathermap.org/data/2.5/forecast?q=${searchInputVal}&units=imperial&appid=4f82dd0d149294627ba2d28ac435f1d2 `;
-  // console.log(queryString);
-
-  if (searchInputVal) {
-    getCityWeather(searchInputVal);
-    currentWeatherEl.textcontent = "";
-    searchInputEl.value = "";
+  if (city) {
+    getCityWeather(city);
+  } else {
+    alert("Please enter a valid city name");
   }
-  //else {
-  //   alert("Please enter a valid city name");
-  // }
+
+  cities.push(city);
+  console.log(cities);
+  city.value = "";
+  storeCities();
+  renderCities();
 }
 
 const getCityWeather = function (city) {
@@ -54,9 +50,6 @@ const displayCurrentCityWeather = function (data) {
   console.log("Current Wind:", currentWind);
   const currentHumidity = data.list[0].main.humidity;
   console.log("Current Humidity:", currentHumidity);
-  // const currentDate = data.list[0].dt_txt;
-  // console.log(currentDate);
-  // console.log(dayjs(currentDate).format("dddd, MMMM D YYYY"));
   const currentDate = dayjs(data.list[0].dt_txt).format("dddd, MMMM D YYYY");
   console.log(currentDate);
 
@@ -124,14 +117,39 @@ const displayFutureCityWeather = function (data) {
   }
 };
 
-// const displayWeather = function (data, searchTerm) {
-//   if (MediaCapabilities.length === 0) {
-//     currentWeatherEl.textContent = "City not found.";
-//     return;
-//   }
+let cities = [];
 
-//   for (let cityObj of city) {
-//     const cityName =
-//   }
+// function renderCities() {
+//   savedCities.innerHTML = "";
+//   for (let i = 0, )
+// }
 
+function storeCities() {
+  localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+function renderCities() {
+  savedCities.html("");
+
+  for (let i = 0; i < cities.length; i++) {
+    const city = cities[i];
+
+    const savedCity = $("<button>");
+    savedCity.addClass().text(city);
+
+    savedCities.append(savedCity);
+  }
+}
+
+function init() {
+  const storedCities = JSON.parse(localStorage.getItem("cities"));
+
+  if (storedCities !== null) {
+    cities = storedCities;
+
+    renderCities();
+  }
+}
 searchFormEl.on("submit", handleSearchFormSubmit);
+
+init();
