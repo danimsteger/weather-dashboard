@@ -165,7 +165,7 @@ function storeCities() {
 //   return data.filter((value, index) => data.indexOf(value) === index);
 // }
 
-console.log(removeDuplicates(cities));
+// console.log(removeDuplicates(cities));
 
 function renderCities() {
   // Clear saved cities list
