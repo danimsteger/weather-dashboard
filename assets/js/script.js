@@ -13,7 +13,7 @@ function handleSearchFormSubmit(event) {
 
   // Only does the following if a city is inputed.
   if (city !== "") {
-    getCityWeather(city);
+    getCityWeather(city, true);
 
     // Clears existing city weather before rendering the weather of the new city
     currentWeatherEl.html("");
@@ -24,7 +24,7 @@ function handleSearchFormSubmit(event) {
   }
 }
 
-const getCityWeather = function (city) {
+const getCityWeather = function (city, pushCities) {
   // API URL with the searched city to get data of that city
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=4f82dd0d149294627ba2d28ac435f1d2 `;
 
@@ -35,8 +35,13 @@ const getCityWeather = function (city) {
         response.json().then(function (data) {
           displayCurrentCityWeather(data);
           displayFutureCityWeather(data);
-          // Adds searched city to the cities array.
-          cities.push(city);
+          // Adds searched city to the cities array, only if the city is not already in the array.
+          if (pushCities) {
+            if (!cities.includes(city)) {
+              cities.push(city);
+            }
+          }
+
           storeCities();
           renderCities();
 
@@ -161,11 +166,6 @@ let cities = [];
 function storeCities() {
   localStorage.setItem("cities", JSON.stringify(cities));
 }
-// function removeDuplicates(data) {
-//   return data.filter((value, index) => data.indexOf(value) === index);
-// }
-
-// console.log(removeDuplicates(cities));
 
 function renderCities() {
   // Clear saved cities list
@@ -202,7 +202,8 @@ const buttonClick = function (event) {
   const city = event.target.getAttribute("data-city");
 
   if (city) {
-    getCityWeather(city);
+    // Does not push the city that was already in the array in again.
+    getCityWeather(city, false);
     currentWeatherEl.html("");
     futureWeatherEl.html("");
     futureWeatherHeaderEl.html("");
